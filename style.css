@@ -1,0 +1,390 @@
+/* ==========================================================================
+   1. MULTI-TIER SCI-FI COBALT BLUE THEME VARIABLES WITH WHITE CONTROL NODES
+   ========================================================================== */
+:root {
+    --bg-ultra-black: #000000;         /* Pure Black Background */
+    --bg-card: #000000;                /* Pure Black Card Background */
+    --neon-blue: #0077ff;              /* High-Tech Electric Blue */
+    --neon-cyan: #00f3ff;              /* Active Interactive Cyan Accent */
+    --soft-blue-glow: rgba(0, 119, 255, 0.25);
+    --text-pure-white: #ffffff;
+    --text-muted: #536799;              /* Slate Blue Muted Text */
+    --capsule-red: #ff3b3b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Agency FB', 'Arial Narrow', sans-serif;
+}
+
+body {
+    background-color: #000000;
+    color: var(--text-pure-white);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ==========================================================================
+   ACCESSIBLE FOCUS OUTLINE (HIGH-CONTRAST NEON CYAN FOR KEYBOARD USERS ONLY)
+   ========================================================================== */
+button:focus-visible,
+textarea:focus-visible,
+input:focus-visible,
+[tabindex="0"]:focus-visible {
+    outline: 2px solid var(--neon-cyan) !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 12px var(--neon-cyan) !important;
+}
+
+button:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+[tabindex="0"]:focus:not(:focus-visible) {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* ==========================================================================
+   2. SPLIT LAYOUT: AVATAR VIDEO (LEFT) & CHAT CONTENT (RIGHT)
+   ========================================================================== */
+.main-layout-container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    height: calc(100vh - 120px);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Left Side: Avatar Video Only */
+.ai-avatar-section {
+    width: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#aliceVideo {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 12px;
+    border: none !important;
+    object-fit: cover;
+}
+
+/* Right Side: Chat Responses Section & Top-Right Compact System Stats */
+.chat-content-section {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 20px 24px 0 0;
+    position: relative;
+}
+
+/* Compact System Stats Status Bars (CPU, RAM, SSD) pinned to Top-Right Corner */
+.system-stats-wrapper {
+    position: absolute;
+    top: 15px;
+    right: 24px;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    z-index: 500;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stat-title {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: var(--text-pure-white);
+    letter-spacing: 0.5px;
+}
+
+.stat-bar-outline {
+    position: relative;
+    width: 100%;
+    height: 16px;
+    border: 1.5px solid #ffffff;
+    border-radius: 3px;
+    background: #000000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.stat-bar-fill {
+    height: 100%;
+    background: var(--neon-blue);
+    transition: width 0.4s ease;
+}
+
+.stat-percentage {
+    position: absolute;
+    right: 6px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.65rem;
+    font-weight: bold;
+    color: var(--text-pure-white);
+    z-index: 2;
+}
+
+/* ==========================================================================
+   3. CHAT HISTORY CONTAINER & BUBBLES (CHATGPT ALIGNED LAYOUT - NO SIDE BORDER)
+   ========================================================================== */
+.chat-window {
+    flex: 1;
+    overflow-y: auto;
+    padding: 50px 0 140px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #000000;
+}
+
+.message-bubble {
+    max-width: 85%;
+    padding: 16px 20px;
+    border-radius: 10px;
+    animation: slideUp 0.25s cubic-bezier(0.1, 0.8, 0.3, 1);
+}
+
+.user-message {
+    align-self: flex-end;
+    background: #000000;
+    border: 1px solid rgba(0, 119, 255, 0.4);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 1.05rem;
+}
+
+.ai-message {
+    align-self: flex-start;
+    background: #000000;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ai-response-text {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: var(--text-pure-white);
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+/* ==========================================================================
+   4. INTERACTIVE BUTTON STYLING RULES & CHATGPT-STYLE ACTION ROW
+   ========================================================================== */
+.action-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    align-items: center;
+}
+
+.action-btn {
+    background: transparent;
+    border: none !important;
+    border-radius: 6px;
+    padding: 6px 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    background: rgba(0, 243, 255, 0.08);
+}
+
+.futuristic-icon {
+    fill: none;
+    stroke: var(--neon-blue);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    width: 16px;
+    height: 16px;
+    transition: stroke 0.2s ease;
+}
+
+.action-btn:hover .futuristic-icon {
+    stroke: var(--neon-cyan);
+}
+
+/* ==========================================================================
+   5. RIGHT SIDE BOTTOM INPUT PANEL WRAPPER
+   ========================================================================== */
+.input-panel-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 35px;
+    width: 60%;
+    max-width: 650px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.file-preview-container {
+    display: flex;
+    width: 100%;
+}
+
+.file-capsule {
+    background: #000000;
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 10px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 180px;
+    max-width: 260px;
+}
+
+.file-icon-badge {
+    background: rgba(0, 243, 255, 0.1);
+    border-radius: 6px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.capsule-svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: var(--neon-cyan);
+    stroke-width: 2;
+}
+
+.file-metadata {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.preview-file-name {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-pure-white);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.preview-file-type {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: bold;
+}
+
+.remove-file-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: var(--text-muted);
+    stroke-width: 2.5;
+}
+
+.remove-file-btn:hover .remove-svg {
+    stroke: var(--capsule-red);
+}
+
+.chat-input-container {
+    background: #000000;
+    border: 1px solid rgba(0, 119, 255, 0.4);
+    box-shadow: 0 0 25px var(--soft-blue-glow);
+    border-radius: 14px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    backdrop-filter: blur(12px);
+}
+
+.chat-input-container textarea {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-pure-white);
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1.05rem;
+    resize: none;
+    height: 26px;
+    outline: none;
+}
+
+.chat-input-container textarea::placeholder {
+    color: var(--text-pure-white) !important;
+    opacity: 1 !important;
+}
+
+#attachBtn .futuristic-icon, 
+#sendBtn .futuristic-icon {
+    stroke: var(--text-pure-white) !important;
+}
+
+/* ==========================================================================
+   6. SMALL HIGH-TECH SYSTEM DISCLAIMER FOOTNOTE STYLING
+   ========================================================================== */
+.ai-system-disclaimer {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-align: right;
+    margin-top: 2px;
+    letter-spacing: 0.3px;
+    opacity: 0.85;
+}
